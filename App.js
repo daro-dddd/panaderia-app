@@ -75,11 +75,8 @@ export default function App() {
   // Guarda el pan que el usuario tocó para abrir la ventana con sus ingredientes
   const [panSeleccionado, setPanSeleccionado] = useState(null);
 
-  // Guarda si el cupón del 50% de descuento en el segundo pan está activado
-  const [cuponActivo, setCuponActivo] = useState(false);
-
   // ==========================================
-  // 3. FUNCIONES (LÓGICA DE LA APLICACIÓN)
+  // 3. FUNCIONES (LOGICA DE LA APLICACION)
   // ==========================================
   
   // Función para mostrar alertas en celular o en navegador web sin errores
@@ -95,43 +92,31 @@ export default function App() {
   const agregarAlCarrito = (pan) => {
     setCarrito([...carrito, pan]);
     setPanSeleccionado(null); // Cerramos el detalle si estaba abierto
-    mostrarMensaje('¡Agregado!', `Se añadió "${pan.nombre}" a tu pedido.`);
+    
+    if (pan.id === 3) {
+      mostrarMensaje('Promocion aplicada', 'Agregaste Pan de Muerto: te dimos el 50% en el mismo.');
+    } else {
+      mostrarMensaje('Agregado', `Se anadio "${pan.nombre}" a tu pedido.`);
+    }
   };
 
   // Función para quitar un pan del carrito por su índice
   const quitarDelCarrito = (indiceABorrar) => {
     const nuevoCarrito = carrito.filter((_, index) => index !== indiceABorrar);
     setCarrito(nuevoCarrito);
-    // Si quedan menos de 2 panes, se apaga el cupón del segundo pan
-    if (nuevoCarrito.length < 2) {
-      setCuponActivo(false);
-    }
-  };
-
-  // Función para activar el cupón del 50% de descuento
-  const activarCuponMitad = () => {
-    if (carrito.length < 2) {
-      mostrarMensaje(
-        'Tip para aprovechar el cupón',
-        '¡Agrega al menos 2 panes al carrito para que el segundo te cueste la mitad!'
-      );
-      return;
-    }
-    setCuponActivo(true);
-    mostrarMensaje(
-      'Cupon Activado',
-      'Se aplico 50% de descuento en tu segundo pan.'
-    );
   };
 
   // ==========================================
-  // 4. CÁLCULO DE TOTALES Y DESCUENTOS
+  // 4. CALCULO DE TOTALES Y DESCUENTOS
   // ==========================================
+  // Verificamos si hay un Pan de Muerto en el carrito
+  const panDeMuertoEnCarrito = carrito.find((item) => item.id === 3);
+
   // Suma total sin descuentos
   const subtotal = carrito.reduce((acumulado, item) => acumulado + item.precio, 0);
 
-  // Descuento: Si el cupón está activo y hay 2 o más panes, descontamos el 50% del segundo pan
-  const descuento = cuponActivo && carrito.length >= 2 ? carrito[1].precio * 0.5 : 0;
+  // Descuento: Si agregas un Pan de Muerto te damos el 50% en el mismo
+  const descuento = panDeMuertoEnCarrito ? panDeMuertoEnCarrito.precio * 0.5 : 0;
 
   // Total final a pagar
   const total = Math.max(0, subtotal - descuento);
@@ -148,7 +133,6 @@ export default function App() {
     );
     // Vaciamos el carrito
     setCarrito([]);
-    setCuponActivo(false);
   };
 
   // ==========================================
@@ -168,12 +152,11 @@ export default function App() {
             </View>
           </View>
 
-          {/* MENSAJE DE BIENVENIDA Y ESTRATEGIA COMERCIAL */}
+          {/* MENSAJE DE BIENVENIDA Y PROMOCION */}
           <View style={styles.bannerIncentivo}>
-            <Text style={styles.bannerTitulo}>¿Por qué comprar con nosotros?</Text>
+            <Text style={styles.bannerTitulo}>PROMOCION DE LA CASA:</Text>
             <Text style={styles.bannerDescripcion}>
-              Disfruta el sabor del pan tradicional sin inflamación ni gluten. 
-              <Text style={{ fontWeight: 'bold', color: '#B45309' }}> ¡Toca cualquier foto para ver sus ingredientes!</Text>
+              Si agregas un Pan de Muerto te damos el 50% en el mismo.
             </Text>
           </View>
 
@@ -240,38 +223,24 @@ export default function App() {
                 ))}
 
                 {/* ==================================================== */}
-                {/* CUPÓN DE DESCUENTO: ESTRATEGIA PARA SUBIR VENTAS     */}
-                {/* Si llevas 2 panes, ¡el segundo a mitad de precio!   */}
+                {/* PROMOCION: 50% EN PAN DE MUERTO                     */}
                 {/* ==================================================== */}
                 <View style={styles.cajaCuponPromo}>
-                  <Text style={styles.cuponTitulo}>ESTRATEGIA PARA VENDER MAS:</Text>
+                  <Text style={styles.cuponTitulo}>PROMOCION DE LA CASA:</Text>
                   <Text style={styles.cuponTexto}>
-                    Lleva tu segundo pan con <Text style={{ fontWeight: 'bold' }}>50% DE DESCUENTO</Text>
+                    Si agregas un Pan de Muerto te damos el <Text style={{ fontWeight: 'bold' }}>50% en el mismo</Text>.
                   </Text>
 
-                  {carrito.length === 1 && (
-                    <Text style={styles.cuponAvisoExtra}>
-                      Nota: Agrega 1 pan mas al carrito para activar tu 50% de descuento.
-                    </Text>
-                  )}
-
-                  {carrito.length >= 2 && !cuponActivo && (
-                    <TouchableOpacity
-                      style={styles.botonActivarCupon}
-                      onPress={activarCuponMitad}
-                    >
-                      <Text style={styles.textoBotonActivarCupon}>
-                        APLICAR 50% EN EL SEGUNDO PAN
-                      </Text>
-                    </TouchableOpacity>
-                  )}
-
-                  {cuponActivo && (
+                  {panDeMuertoEnCarrito ? (
                     <View style={styles.cuponAplicadoTag}>
                       <Text style={styles.textoCuponAplicado}>
-                        Cupon aplicado: 50% de rebaja en {carrito[1]?.nombre} (-${descuento} MXN)
+                        Descuento aplicado: 50% en Pan de Muerto (-${descuento} MXN)
                       </Text>
                     </View>
+                  ) : (
+                    <Text style={styles.cuponAvisoExtra}>
+                      Aun no tienes Pan de Muerto en tu pedido. Agregalo desde el catalogo para obtener tu 50% de descuento.
+                    </Text>
                   )}
                 </View>
 
@@ -284,7 +253,7 @@ export default function App() {
 
                   {descuento > 0 && (
                     <View style={styles.filaResumen}>
-                      <Text style={styles.textoDescuento}>Descuento 50% (2do Pan):</Text>
+                      <Text style={styles.textoDescuento}>Descuento 50% (Pan de Muerto):</Text>
                       <Text style={styles.textoDescuento}>-${descuento} MXN</Text>
                     </View>
                   )}

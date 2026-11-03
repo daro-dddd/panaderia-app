@@ -9,7 +9,7 @@ Aplicacion movil desarrollada con **React Native** y **Expo** para una panaderia
 La aplicacion busca resolver la necesidad de personas celiacas o con sensibilidad al gluten de encontrar opciones de reposteria y panaderia seguras, combinando:
 1. **Atraccion Visual:** Catalogo con fotografias de alta calidad de los panes para despertar el interes del cliente.
 2. **Transparencia e Informacion:** Al tocar cualquier producto, se despliega una ventana de detalle con los ingredientes exactos y la garantia de cero contaminacion cruzada.
-3. **Estrategia Comercial de Ventas:** Un carrito interactivo que ofrece un cupon promocional: *Llevate el segundo pan con 50% de descuento*, incentivando al cliente a aumentar el volumen de su compra.
+3. **Estrategia Comercial de Ventas:** Un aviso y carrito interactivo que ofrece la promocion: *Si agregas un Pan de Muerto te damos el 50% en el mismo*, incentivando al cliente a probar el producto de temporada.
 
 ---
 
@@ -25,7 +25,7 @@ La aplicacion busca resolver la necesidad de personas celiacas o con sensibilida
   - Boton directo para anadir al carrito.
 - **Carrito de Compras y Logica Comercial:**
   - Contador de piezas y resumen financiero (Subtotal, Descuentos y Total).
-  - Activacion automatica de la promocion comercial al contar con 2 o mas piezas.
+  - Activacion automatica del 50% de descuento al incluir un Pan de Muerto en la orden.
   - Posibilidad de eliminar articulos individualmente.
   - Alerta de confirmacion de pago y vaciado de carrito.
 
