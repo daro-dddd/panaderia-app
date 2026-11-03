@@ -119,8 +119,8 @@ export default function App() {
     }
     setCuponActivo(true);
     mostrarMensaje(
-      '🎉 ¡Cupón Activado!',
-      '¡Felicidades! Se aplicó 50% de descuento en tu segundo pan.'
+      'Cupon Activado',
+      'Se aplico 50% de descuento en tu segundo pan.'
     );
   };
 
@@ -143,8 +143,8 @@ export default function App() {
       return;
     }
     mostrarMensaje(
-      '¡Compra Exitosa! 🥐',
-      `Gracias por tu pedido en Dulce Sin Gluten.\nTotal cobrado: $${total} MXN.\n¡Tus panes van directo a tu mesa!`
+      'Compra Exitosa',
+      `Gracias por tu pedido en Dulce Sin Gluten.\nTotal cobrado: $${total} MXN.\nTus panes van directo a tu mesa.`
     );
     // Vaciamos el carrito
     setCarrito([]);
@@ -161,10 +161,10 @@ export default function App() {
 
           {/* ENCABEZADO DE LA PANADERÍA */}
           <View style={styles.encabezado}>
-            <Text style={styles.nombrePanaderia}>🥖 DULCE SIN GLUTEN</Text>
-            <Text style={styles.subtituloPanaderia}>Panadería Artesanal 100% Celíaco-Friendly</Text>
+            <Text style={styles.nombrePanaderia}>DULCE SIN GLUTEN</Text>
+            <Text style={styles.subtituloPanaderia}>Panaderia Artesanal 100% Libre de Gluten</Text>
             <View style={styles.badgeCertificado}>
-              <Text style={styles.textoBadge}>✓ Cero Contaminación Cruzada</Text>
+              <Text style={styles.textoBadge}>Cero Contaminacion Cruzada</Text>
             </View>
           </View>
 
@@ -196,7 +196,7 @@ export default function App() {
                 <View style={styles.datosPan}>
                   <Text style={styles.nombrePan}>{pan.nombre}</Text>
                   <Text style={styles.descripcionPan}>{pan.descripcionCorta}</Text>
-                  <Text style={styles.enlaceVerIngredientes}>🔍 Toca para ver de qué está hecho</Text>
+                  <Text style={styles.enlaceVerIngredientes}>Toca para ver ingredientes</Text>
                   <Text style={styles.precioPan}>${pan.precio} MXN</Text>
                 </View>
               </TouchableOpacity>
@@ -215,7 +215,7 @@ export default function App() {
           {/* SECCIÓN DEL CARRITO DE COMPRAS */}
           {/* ========================================== */}
           <Text style={styles.tituloSeccion}>
-            🛒 Mi Carrito ({carrito.length} {carrito.length === 1 ? 'pan' : 'panes'}):
+            Mi Carrito ({carrito.length} {carrito.length === 1 ? 'pan' : 'panes'}):
           </Text>
 
           <View style={styles.cajaCarrito}>
@@ -244,14 +244,14 @@ export default function App() {
                 {/* Si llevas 2 panes, ¡el segundo a mitad de precio!   */}
                 {/* ==================================================== */}
                 <View style={styles.cajaCuponPromo}>
-                  <Text style={styles.cuponTitulo}>🎁 ESTRATEGIA PARA VENDER MÁS:</Text>
+                  <Text style={styles.cuponTitulo}>ESTRATEGIA PARA VENDER MAS:</Text>
                   <Text style={styles.cuponTexto}>
-                    ¡Lleva tu segundo pan con <Text style={{ fontWeight: 'bold' }}>50% DE DESCUENTO</Text>!
+                    Lleva tu segundo pan con <Text style={{ fontWeight: 'bold' }}>50% DE DESCUENTO</Text>
                   </Text>
 
                   {carrito.length === 1 && (
                     <Text style={styles.cuponAvisoExtra}>
-                      💡 Agrega 1 pan más al carrito para activar tu 50% de descuento.
+                      Nota: Agrega 1 pan mas al carrito para activar tu 50% de descuento.
                     </Text>
                   )}
 
@@ -261,7 +261,7 @@ export default function App() {
                       onPress={activarCuponMitad}
                     >
                       <Text style={styles.textoBotonActivarCupon}>
-                        🏷️ APLICAR 50% EN EL SEGUNDO PAN
+                        APLICAR 50% EN EL SEGUNDO PAN
                       </Text>
                     </TouchableOpacity>
                   )}
@@ -269,7 +269,7 @@ export default function App() {
                   {cuponActivo && (
                     <View style={styles.cuponAplicadoTag}>
                       <Text style={styles.textoCuponAplicado}>
-                        ✓ ¡Cupón aplicado! 50% de rebaja en: {carrito[1]?.nombre} (-${descuento} MXN)
+                        Cupon aplicado: 50% de rebaja en {carrito[1]?.nombre} (-${descuento} MXN)
                       </Text>
                     </View>
                   )}
@@ -297,7 +297,7 @@ export default function App() {
 
                 {/* BOTÓN PARA FINALIZAR COMPRA */}
                 <TouchableOpacity style={styles.botonPagar} onPress={finalizarCompra}>
-                  <Text style={styles.textoBotonPagar}>✓ Finalizar Compra (${total} MXN)</Text>
+                  <Text style={styles.textoBotonPagar}>Finalizar Compra (${total} MXN)</Text>
                 </TouchableOpacity>
               </>
             )}
@@ -330,7 +330,7 @@ export default function App() {
                 <View style={styles.modalContenido}>
                   {/* Sello de Sin Gluten */}
                   <View style={styles.modalBadgeGluten}>
-                    <Text style={styles.modalBadgeGlutenTexto}>🌾 100% LIBRE DE GLUTEN</Text>
+                    <Text style={styles.modalBadgeGlutenTexto}>100% LIBRE DE GLUTEN</Text>
                   </View>
 
                   <Text style={styles.modalNombre}>{panSeleccionado.nombre}</Text>
@@ -338,13 +338,13 @@ export default function App() {
 
                   {/* Sección: De qué está hecho */}
                   <View style={styles.seccionDetalle}>
-                    <Text style={styles.modalSubtitulo}>🥣 ¿De qué está hecho?</Text>
+                    <Text style={styles.modalSubtitulo}>De que esta hecho:</Text>
                     <Text style={styles.modalTexto}>{panSeleccionado.ingredientes}</Text>
                   </View>
 
                   {/* Sección: Por qué es sin gluten y seguro */}
                   <View style={styles.seccionDetalle}>
-                    <Text style={styles.modalSubtitulo}>🛡️ Garantía Sin Gluten:</Text>
+                    <Text style={styles.modalSubtitulo}>Garantia Sin Gluten:</Text>
                     <Text style={styles.modalTexto}>{panSeleccionado.porQueSinGluten}</Text>
                   </View>
 
